@@ -5,12 +5,21 @@ import Todo from './components/Todo';
 function App(){
   const [todos,setTodos] = useState([])
   const [todo,setTodo] = useState('')
+  const [message,setMessage] = useState('')
+
+  const setMessageState = (state) => {
+    setMessage(state)
+  }
+
   const addTodo = () => {
     setTodos([...todos,{id:uuid(),text:todo}])
+    setMessageState("added")
   } 
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id))
+    setMessageState("deleted")
   }
+
 
   return(
     <div className="container my-5">
@@ -32,7 +41,17 @@ function App(){
         </ul>
       </div>
 
-
+      <div className="col-sm-2 d-flex align-items-center gap-4">
+        <span>
+          <button className="btn btn-primary">
+            {todos.length}
+          </button>
+        </span>
+      </div>
+      
+      <div className="row m-4 p-2 bg-secondary text-center">
+         <span >{message} successfully</span>
+      </div>
     </div>
   )
 }
